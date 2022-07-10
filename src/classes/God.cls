@@ -1,19 +1,19 @@
 //Create class God with two methods
 public class God {
 
-    public Human.Man createMan(String name){
-        return new Human.Man(name);
+    public Man createMan(String name) {
+        return new Man(name);
     }
 
-    public Human.Woman createWoman(String name){
-        return new Human.Woman(name);
+    public Woman createWoman(String name) {
+        return new Woman(name);
     }
 
 }
 
-//Create instance of God
+//Creates instance of God
 God god = new God();
 
-//Create instances of Man and Woman
-Human.Man firstMan = god.createMan('Adam');
-Human.Woman firstWoman = god.createWoman('Eve');
+//Creates instances of Man and Woman with names Adam and Eve
+Man firstMan = god.createMan('Adam');
+Woman firstWoman = god.createWoman('Eve');

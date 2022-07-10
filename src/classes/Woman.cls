@@ -1,7 +1,7 @@
-/**
- * Created by pavel on 09.07.2022.
- */
+//Creates class Woman which extends class Human
+public class Woman extends Human {
+    public Woman(String name) {
+        super(name);
+    }
 
-//    public class Woman extends Human{
-//
-//    }
+}
