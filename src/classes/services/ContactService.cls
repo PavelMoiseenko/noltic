@@ -34,7 +34,7 @@ public class ContactService {
                     acc.Type__c = 'Company';
                 }
                 else{
-                    acc.Type__c = '';
+                    acc.Type__c = null;
                 }
 
             }
