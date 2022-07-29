@@ -5,7 +5,9 @@ public class CaseService {
         Set<Id> countryIds = new Set<Id>();
 
         for (Case c : cases) {
-            countryIds.add(c.Country__c);
+            if (c.Status == 'Closed') {
+                countryIds.add(c.Country__c);
+            }
         }
 
         Map<Id, Country__c> countryMessages = new Map<Id, Country__c>(
@@ -20,26 +22,55 @@ public class CaseService {
     }
 
     public static void numberClosedOnCountry(List<Case> cases) {
-        Set<Id> countryIds = new Set<Id>();
 
+        Map<Id, Integer> closedCasesByCountry = new Map<Id, Integer>();
         for (Case c : cases) {
             if (c.Status == 'Closed') {
-                countryIds.add(c.Country__c);
+                Integer currentAmount = closedCasesByCountry.get(c.Country__c);
+
+                if (currentAmount != null) {
+                    currentAmount++;
+                } else {
+                    currentAmount = 1;
+                }
+                closedCasesByCountry.put(c.Country__c, currentAmount);
             }
         }
 
-        List<AggregateResult> aggregateResults = CaseSelector.getAmountOfClosedCasesForEachCountry();
+        Set<Id> countryIds = closedCasesByCountry.keySet();
+
+        List<Country__c> oldValuesClosedCasesByCountry = CaseSelector.oldValuesClosedCasesByCountry(countryIds);
+
+        Map<Id, Country__c> countries = new Map<Id, Country__c>();
+
+        for (Country__c c : oldValuesClosedCasesByCountry) {
+            countries.put(c.Id, c);
+        }
+
         List<Country__c> countriesToUpdate = new List<Country__c>();
+        for (Id countryId : closedCasesByCountry.keySet()) {
 
-        for (AggregateResult ar : aggregateResults) {
             countriesToUpdate.add(
-                    new Country__c(Id = (Id) ar.get('Country__c'),
-                            ClosedCases__c += (Integer) ar.get('amount'))
+                    new Country__c(
+                            Id = countryId,
+                            ClosedCases__c = countries.get(countryId).ClosedCases__c + closedCasesByCountry.get(countryId)
+                    )
             );
+
         }
 
-        if (countriesToUpdate.size() > 0) {
-            update countriesToUpdate;
-        }
+        update countriesToUpdate;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
