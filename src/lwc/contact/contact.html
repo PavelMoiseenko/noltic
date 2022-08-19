@@ -1,0 +1,9 @@
+<template>
+    <div class="slds-p-bottom_medium">
+        <template if:true={contactItem}>
+            <p>{contactItem.firstName} {contactItem.lastName}</p>
+            <p>Phone: {contactItem.phone}</p>
+            <p>Year: {contactItem.year}</p>
+        </template>
+    </div>
+</template>
