@@ -1,0 +1,31 @@
+<template>
+    <lightning-card title="Diary">
+        <template if:true={diaries.data}>
+            <ul class='slds-p-left_medium'>
+                <template for:each={diaries.data} for:item='diary'>
+                    <li key={diary.Id} class='slds-p-bottom_medium'>
+                        <b>Created Date: </b>
+                        <lightning-formatted-date-time value={diary.CreatedDate} day="numeric" month="2-digit"
+                                                       year="numeric">
+                        </lightning-formatted-date-time>
+                        <br>
+                        <b>Note: </b> {diary.Note__c}<br>
+                        <lightning-button variant="destructive"
+                                          label="Delete"
+                                          data-diaryid={diary.Id}
+                                          icon-name="utility:delete"
+                                          icon-position="right"
+                                          onclick={deleteDiary}>
+                        </lightning-button>
+                    </li>
+                </template>
+            </ul>
+        </template>
+        <div class="slds-p-left_medium slds-p-right_medium">
+            <lightning-input label='New note:' class="slds-m-bottom_medium" placeholder="Type diary note.."
+                             onchange={handleNoteChange}></lightning-input>
+            <lightning-button label="Add" variant="brand" title="Add"
+                              onclick={createDiary}></lightning-button>
+        </div>
+    </lightning-card>
+</template>
