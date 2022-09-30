@@ -1,0 +1,30 @@
+<template>
+    <lightning-card title="Summary">
+        <template if:true={interviews.data}>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+                <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Interview Name">Interview Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Status of interview">Status of interview</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                    <template for:each={interviews.data} for:item='interview'>
+                        <tr key={interview.Id} class="slds-hint-parent">
+                            <td data-label="Interview Name">
+                                <div class="slds-truncate">{interview.Name}</div>
+                            </td>
+                            <td data-label="Status of interview">
+                                <div class="slds-truncate">{interview.Status__c}</div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+    </lightning-card>
+</template>
