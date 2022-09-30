@@ -1,0 +1,57 @@
+<template>
+    <lightning-card title="Schedule of interviews this week">
+        <template if:true={interviews.data}>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+                <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Interview Name">Interview Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Vacancy">Vacancy</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Date">Date</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Candidate">Candidate</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Customer">Customer</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <template for:each={interviews.data} for:item='interview'>
+                    <tr key={interview.Id} class="slds-hint-parent">
+                        <td data-label="Interview Name">
+                            <div class="slds-truncate">{interview.Name}</div>
+                        </td>
+                        <td data-label="Vacancy">
+                            <div class="slds-truncate">{interview.Vacancy__r.Name}</div>
+                        </td>
+                        <td data-label="Date">
+                                <lightning-formatted-date-time
+                                        value={interview.Meeting__c}
+                                        year="numeric"
+                                        day="2-digit"
+                                        month="long"
+                                        hour="2-digit"
+                                        minute="2-digit"
+                                        time-zone="Europe/London"
+                                >
+                                </lightning-formatted-date-time>
+                        </td>
+                        <td data-label="Candidate">
+                            <div class="slds-truncate">{interview.Candidate__r.Name}</div>
+                        </td>
+                        <td data-label="Customer">
+                            <div class="slds-truncate">{interview.Customer__r.Name}</div>
+                        </td>
+                    </tr>
+                </template>
+                </tbody>
+            </table>
+        </template>
+    </lightning-card>
+</template>
